@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Create New Task</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Module</label>
+            <input class="form-control" list="moduleOptions" name="module"
+                placeholder="Type to search module (HR, Fleet, etc.)">
+            <datalist id="moduleOptions">
+                <option value="User Support">
+                <option value="Attendance">
+                <option value="SOHO">
+                <option value="POS">
+                <option value="Fleet">
+                <option value="HR">
+                <option value="E-Office">
+                <option value="Accounting">
+                <option value="Purchase">
+                <option value="Inventory">
+                <option value="Payroll">
+            </datalist>
+            <small class="text-muted">Pick a module or type a new one.</small>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label>Priority</label>
+                <select name="priority" class="form-select">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>Type</label>
+                <select name="type" class="form-select">
+                    <option value="Daily" selected>Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3 ">
+                <label>Status</label>
+                <select name="status" class="form-select">
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>Due Date</label>
+                <input type="date" name="deadline" class="form-control">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Task</button>
+    </form>
+</div>
+{% endblock %}

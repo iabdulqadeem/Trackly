@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit Task</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Title:</label>
+            <input type="text" name="edit_title" class="form-control" value="{{task.title}}" required>
+        </div>
+        <div class="mb-3">
+            <label>Description: </label>
+            <textarea name="edit_description" class="form-control" rows="3">{{task.description}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Module</label>
+            <input class="form-control" list="moduleOptions" name="edit_module"
+                placeholder="Type to search module (HR, Fleet, etc.)" value="{{task.module}}">
+            <datalist id="moduleOptions">
+                <option value="Attendance">
+                <option value="Fleet">
+                <option value="HR">
+                <option value="eOffice">
+                <option value="Finance">
+                <option value="Inventory">
+                <option value="Payroll">
+            </datalist>
+            <small class="text-muted">Pick a module or type a new one.</small>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label>Priority</label>
+                <select name="edit_priority" class="form-select">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>Type</label>
+                <select name="edit_type" class="form-select">
+                    <option value="Daily" selected>Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3 ">
+                <label>Status</label>
+                <select name="edit_status" class="form-select">
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>Due Date</label>
+                <input type="date" name="edit_deadline" class="form-control" value="{{task.due_date}}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Task</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm 1.5cm 2.5cm 1.5cm; /* Extra bottom margin for footer */
+            @bottom-left {
+                content: element(footer);
+            }
+        }
+
+        body { font-family: 'Helvetica', 'Arial', sans-serif; color: #333; font-size: 11px; }
+        
+        /* Footer Logic */
+        div.footer {
+            display: block;
+            position: running(footer);
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
+            font-size: 9px;
+            color: #777;
+        }
+        
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { margin: 0; color: #2c3e50; text-transform: uppercase; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 50px; border: 1px; }
+        th { background-color: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 10px; text-align: left; }
+        td { border-bottom: 1px solid #eee; padding: 8px; vertical-align: top; }
+
+        /* Signature Block */
+        .signature-section {
+            margin-top: 60px;
+            width: 100%;
+        }
+        .sig-box {
+            float: right;
+            width: 250px;
+            text-align: center;
+        }
+        .sig-line {
+            border-top: 1px solid #000;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="footer">
+        <table style="width: 100%; border: none; margin: 0;">
+            <tr>
+                <td style="border: none; padding: 0;">Generated on: {{ generated_on }}</td>
+            </tr>
+            <tr>
+                <td style="border: none; padding: 0; text-align: right;">
+                    <strong>Trackly</strong> | Developed by <strong>Qadeem Arif</strong>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="header">
+        <h1>Task Activity Report</h1>
+        <p>Reporting Period: {{ stats.start }} — {{ stats.end }}</p>
+        <p>Employee: {{user.name}}</p>
+    </div>
+
+    <div style="background: #fdfdfd; padding: 15px; border: 1px solid #eee; margin-bottom: 20px;">
+        <strong>Total Tasks:</strong> {{ stats.total }} | 
+        <strong>Completed:</strong> {{ stats.completed }} | 
+        <strong>Pending:</strong> {{ stats.pending }} |
+        <strong>In Progress:</strong> {{ stats.in_progress }}
+    </div>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Ser</th>
+                <th>Date</th>
+                <th>Task Title</th>
+                <th>Module</th>
+                <th>Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{ task.created_at.strftime('%d-%m-%y') }}</td>
+                <td><strong>{{ task.title }}</strong></td>
+                <td>{{ task.module or 'N/A' }}</td>
+                <td>{{ task.type }}</td>
+                <td>{{ task.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="signature-section">
+        <div class="sig-box">
+            <div class="sig-line"></div>
+            <p><strong>Signature (Reporting Officer)</strong></p>
+            <p style="font-size: 9px; color: #555;">Date: ____/____/202__</p>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+</body>
+</html>

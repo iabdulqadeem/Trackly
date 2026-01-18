@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="position-relative overflow-hidden bg-white py-5">
+    <div class="container position-relative py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="badge rounded-pill bg-dark text-white px-3 py-2 mb-4">Local Environment for Office Only</div>
+                <h1 class="display-2 fw-bolder lh-1 mb-4" style="letter-spacing: -2px;">
+                    Turn Your Chaos into <span class="text-success">Clean Data</span>
+                </h1>
+                <p class="lead text-secondary mb-5 fs-4">
+                    Trackly is the task intelligence platform for teams and individuals who demand professional results. Stop guessing, start tracking, and generate executive-ready reports in seconds.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="{{ url_for('auth.signup') }}" class="btn btn-primary btn-lg px-5 py-3 shadow-lg hover-lift">Get Started</a>
+                </div>
+                <p class="small text-muted mt-3"><i class="bi bi-shield-check me-2"></i>No credit card required • Instant PDF generation</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <div class="homepage opacity-10 position-absolute top-0 start-0 w-100 h-100 rounded-5 transform-rotate-3"></div>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" 
+                         alt="Dashboard Preview" class="img-fluid rounded-4 shadow-2xl position-relative z-1">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="display-5 fw-bold mb-3">Why Professional Managers Choose Trackly</h2>
+                <p class="text-secondary fs-5">Most task apps are toys. Trackly is a tool designed for real business workflows.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-4 h-100 border shadow-sm">
+                    <h3 class="h5 fw-bold mb-3">The "Overload" Problem</h3>
+                    <p class="text-muted">Most dashboards get messy after 10 tasks. Trackly's <strong>Monthly-Weekly-Daily</strong> hierarchy ensures you always see the forest through the trees.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-4 h-100 border shadow-sm">
+                    <h3 class="h5 fw-bold mb-3">The Reporting Gap</h3>
+                    <p class="text-muted">Proving your productivity to a Director shouldn't take hours. Our <strong>One-Click PDF Engine</strong> builds executive summaries in 2 seconds.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-4 h-100 border shadow-sm">
+                    <h3 class="h5 fw-bold mb-3">The Data Graveyard</h3>
+                    <p class="text-muted">Old tasks shouldn't distract you. Our <strong>Smart Auto-Archive</strong> clears your view every month, moving data to a secure history vault.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white border-top" id="demo">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 order-lg-2">
+                <h2 class="display-6 fw-bold mb-4">Executive Reporting at Your Fingertips</h2>
+                <ul class="list-unstyled">
+                    <li class="mb-4 d-flex">
+                        <i class="bi bi-check2-circle text-primary fs-3 me-3"></i>
+                        <div>
+                            <h5 class="fw-bold">Audit-Ready Signatures</h5>
+                            <p class="text-muted">Every PDF includes a Director's signature line and creation timestamps for internal accountability.</p>
+                        </div>
+                    </li>
+                    <li class="mb-4 d-flex">
+                        <i class="bi bi-bar-chart-steps text-primary fs-3 me-3"></i>
+                        <div>
+                            <h5 class="fw-bold">Efficiency Metrics</h5>
+                            <p class="text-muted">Compare due dates with actual completion timestamps to track team performance over time.</p>
+                        </div>
+                    </li>
+                    <li class="mb-4 d-flex">
+                        <i class="bi bi-person-badge text-primary fs-3 me-3"></i>
+                        <div>
+                            <h5 class="fw-bold">Personalized Branding</h5>
+                            <p class="text-muted">Every report is watermarked with the creator's credentials, ensuring credit where it's due.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5 bg-dark rounded-5 text-white shadow-lg">
+                    <p class="text-light fw-bold">Dev Stack</p>
+                    <div class="border-start border-3 border-primary ps-3">
+                        <p class="mb-1">Python | JavaScript | Flask </p>
+                        <p class="mb-1">Bootstrap</p>
+                        <p class="mb-0">Created by: Qadeem Arif</p>
+                    </div>
+                    <hr class="bg-secondary">
+                    <p class="small opacity-50 italic">"The most professional output I've seen from a task tracker." — Director of Ops</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="bg-dark rounded-5 p-5 text-center text-white shadow-lg">
+            <h2 class="display-4 fw-bold mb-4">Ready to elevate your productivity?</h2>
+            <p class="lead mb-5 opacity-75">Join the elite users who manage their time with Trackly.</p>
+            <a href="{{ url_for('auth.signup') }}" class="btn btn-primary btn-lg px-5 py-3 fw-bold">Create My Account Now</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hover-lift { transition: transform 0.2s ease; }
+    .hover-lift:hover { transform: translateY(-5px); }
+    .shadow-2xl { shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+    .transform-rotate-3 { transform: rotate(3deg); }
+    body { font-family: 'Inter', sans-serif; }
+</style>
+
+{% endblock %}

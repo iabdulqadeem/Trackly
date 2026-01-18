@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4 px-2">
+        <div class="col-md-3">
+            <div class="card navbar border-0 shadow-sm bg-success text-white">
+                <div class="card-body text-center">
+                    <h6 class="text-uppercase small fw-bold">Completed Tasks</h6>
+                    <h2 class="display-6 fw-bold mb-0">{{ completed_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card navbar border-0 shadow-sm bg-warning text-white">
+                <div class="card-body text-center">
+                    <h6 class="text-uppercase small fw-bold">Pending Tasks</h6>
+                    <h2 class="display-6 fw-bold mb-0">{{ pending_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card navbar border-0 shadow-sm bg-dark text-white">
+                <div class="card-body text-center">
+                    <h6 class="text-uppercase small fw-bold">Tasks In Progress</h6>
+                    <h2 class="display-6 fw-bold mb-0">{{ in_progress_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card navbar border-0 shadow-sm bg-primary text-white">
+                <div class="card-body text-center">
+                    <h6 class="text-uppercase small fw-bold">Total Tasks</h6>
+                    <h2 class="display-6 fw-bold mb-0">{{ total_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- <div class="col-md-2">
+            <div class="card navbar border-0 shadow-sm bg-dark text-white">
+                <div class="card-body text-center">
+                    <h6 class="text-uppercase small fw-bold">Working Modules</h6>
+                    <h2 class="display-6 fw-bold mb-0">{{ working_modules }}</h2>
+                </div>
+            </div>
+        </div> -->
+        
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <ul class="nav nav-tabs card-header-tabs" id="taskTabs">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark" href="#" onclick="filterTasks('all')">All Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#" onclick="filterTasks('Completed')">Completed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#" onclick="filterTasks('In Progress')">In Progress</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#" onclick="filterTasks('Pending')">Pending</a>
+                </li>
+            </ul>
+            <a href="{{ url_for('tasks.add_task') }}" class="btn btn-primary btn-sm">+ Add New Task</a>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-scroll-container" style="max-height: 600px; overflow-y: auto;">
+                <table class="table table-hover mb-0" id="taskTable">
+                    <thead class="table-light sticky-top" style="top: 0; z-index: 1;">
+                        <tr>
+                            <th style="width: 5%;">Ser</th>
+                            <th style="width: 30%;">Task Details</th>
+                            <th style="width: 10%;">Module</th>
+                            <th style="width: 10%;">Type</th>
+                            <th style="width: 10%;">Priority</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 10%;">Due Date</th>
+                            <th style="width: 15%;">Completed On</th>
+                            <th style="width: 15%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                        <tr class="task-row align-middle" data-status="{{ task.status }}">
+                            <td class="text-center text-muted">{{ loop.index }}</td>
+                            <td>
+                                <div class="fw-bold text-dark">{{ task.title }}</div>
+                                <small class="text-muted d-block text-truncate" style="max-width: 250px;">
+                                    {{ task.description | truncate(60) if task.description else 'No description.' }}
+                                </small>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary-subtle text-dark border">{{ task.module or 'General'
+                                    }}</span>
+                            </td>
+                            <td><span class="badge border text-dark bg-light">{{ task.type }}</span></td>
+                            <td>
+                                <span
+                                    class="badge {% if task.priority == 'High' %}bg-danger{% elif task.priority == 'Medium' %}bg-warning text-dark{% else %}bg-info{% endif %}">
+                                    {{ task.priority }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if task.status == 'Completed' %}
+                                <span class="text-success fw-bold small"><i class="bi bi-check-circle-fill"></i>
+                                    Completed</span>
+                                {% else %}
+                                <span class="text-secondary small">{{ task.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="small">{{ task.due_date.strftime('%d-%b-%Y') if task.due_date else 'No Date' }}
+                            </td>
+                             <td class="small">{{ task.completed_at.strftime('%d-%b-%Y') if task.completed_at else '---' }}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{url_for('tasks.view_task', task_id = task.id) }}"
+                                        class="btn btn-sm btn-outline-secondary">View</a>
+                                    {% if task.status != 'Completed' %}
+                                    <a href="{{url_for('tasks.mark_done', task_id = task.id)}}"
+                                        class="btn btn-sm btn-outline-success">Done</a>
+                                    {% endif %}
+                                    <a href="{{ url_for('tasks.delete_task', task_id=task.id) }}"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Delete this task?')">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">No tasks found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterTasks(status) {
+        const rows = document.querySelectorAll('.task-row');
+        rows.forEach(row => {
+            // We use status.toLowerCase() to prevent issues with "completed" vs "Completed"
+            const taskStatus = row.getAttribute('data-status');
+            if (status === 'all' || taskStatus === status) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Update active tab styling
+        const navLinks = document.querySelectorAll('#taskTabs .nav-link');
+        navLinks.forEach(link => link.classList.remove('active'));
+
+        // Set the clicked link to active
+        event.currentTarget.classList.add('active');
+    }
+</script>
+
+{% endblock %}
